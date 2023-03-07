@@ -16,11 +16,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  * and exponents n and k: output = a(x^n) + b(x^k) </p>
  */
 public class JoyUtil extends CommandXboxController {
+  private static final double sqrt2Over2 = Math.sqrt(2) / 2;
+
   private final double deadzone;
   private final double exponent1, exponent2, coefficient1, coefficient2;
   private final double leftTriggerLeftStickMultiplier, rightTriggerLeftStickMultiplier;
   private final double leftTriggerRightStickMultiplier, rightTriggerRightStickMultiplier;
-
   private final SlewRateLimiter leftXRateLimiter, leftYRateLimiter, rightXRateLimiter, rightYRateLimiter;
 
   /**
@@ -70,6 +71,12 @@ public class JoyUtil extends CommandXboxController {
     // a one-time warning in the rio log if there are even exponents
     if (exponent1 % 2 == 0 || exponent2 % 2 == 0) {
       System.out.println("Exponents of joystick curve aren't odd!");
+    }
+
+    // <> coefficients that don't sum to 1 make driving wonky so provide
+    // a one-time warning in the rio log if there are even exponents
+    if (coefficient1 + coefficient2 != 1) {
+      System.out.println("Coefficients of joystick curve don't add up to 1!");
     }
   }
 
@@ -179,6 +186,125 @@ public class JoyUtil extends CommandXboxController {
    */
   public boolean getRightStick() {
     return rightStick().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed left
+   *
+   * @return if the d-pad is facing left
+   */
+  public boolean getPOVLeft() {
+    return povLeft().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed right
+   *
+   * @return if the d-pad is facing right
+   */
+  public boolean getPOVRight() {
+    return povRight().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed up
+   *
+   * @return if the d-pad is facing up
+   */
+  public boolean getPOVUp() {
+    return povUp().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed down
+   *
+   * @return if the d-pad is facing down
+   */
+  public boolean getPOVDown() {
+    return povDown().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed up left
+   *
+   * @return if the d-pad is facing up left
+   */
+  public boolean getPOVUpLeft() {
+    return povUpLeft().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed up right
+   *
+   * @return if the d-pad is facing up right
+   */
+  public boolean getPOVUpRight() {
+    return povUpRight().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed down left
+   *
+   * @return if the d-pad is facing down left
+   */
+  public boolean getPOVDownLeft() {
+    return povDownLeft().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad is pointed down right
+   *
+   * @return if the d-pad is facing down right
+   */
+  public boolean getPOVDownRight() {
+    return povDownRight().getAsBoolean();
+  }
+
+  /**
+   * <> get if the d-pad isn't pressed
+   *
+   * @return if the d-pad isn't pressed
+   */
+  public boolean getPOVNotPressed() {
+    return !getPOVLeft() && !getPOVUpLeft() && !getPOVUp() && !getPOVUpRight() && !getPOVRight() && !getPOVDownRight() && !getPOVDown() && !getPOVDownLeft();
+  }
+
+  /**
+   * <> gets the value of the d-pad y-axis (sin of pov angle)
+   *
+   * @return the value
+   */
+  public double getPOVYAxis() {
+    if (getPOVUp()) {
+      return 1;
+    } else if (getPOVDown()) {
+      return -1;
+    } else if (getPOVUpLeft() || getPOVUpRight()) {
+      return sqrt2Over2;
+    } else if (getPOVDownLeft() || getPOVDownRight()) {
+      return -sqrt2Over2;
+    } else {
+      return 0;
+    }
+  }
+
+  /**
+   * <> gets the value of the d-pad x-axis (cos of pov angle)
+   *
+   * @return the value
+   */
+  public double getPOVXAxis() {
+    if (getPOVRight()) {
+      return 1;
+    } else if (getPOVLeft()) {
+      return -1;
+    } else if (getPOVUpRight() || getPOVDownRight()) {
+      return sqrt2Over2;
+    } else if (getPOVUpLeft() || getPOVDownLeft()) {
+      return -sqrt2Over2;
+    } else {
+      return 0;
+    }
   }
 
   /**

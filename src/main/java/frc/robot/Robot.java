@@ -4,12 +4,11 @@
 
 package frc.robot;
 
-import frc.robot.Constants.JoyUtilConstants;
-import frc.robot.Constants.OperatorConstants;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.JoyUtilConstants;
+import frc.robot.Constants.OperatorConstants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -34,6 +33,30 @@ public class Robot extends TimedRobot {
   }
 
   /**
+   * This function is called once when the robot is first started up.
+   */
+  @Override
+  public void simulationInit() {}
+
+  /**
+   * This function is called once each time the robot enters Disabled mode.
+   */
+  @Override
+  public void disabledInit() {}
+
+  @Override
+  public void autonomousInit() {}
+
+  @Override
+  public void teleopInit() {}
+
+  @Override
+  public void testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll();
+  }
+
+  /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
    * that you want ran during disabled, autonomous, teleoperated and test.
    *
@@ -49,43 +72,9 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
   }
 
-  /** This function is called once each time the robot enters Disabled mode. */
-  @Override
-  public void disabledInit() {}
-
-  @Override
-  public void disabledPeriodic() {}
-
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
-  @Override
-  public void autonomousInit() {}
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {}
-
-  @Override
-  public void teleopInit() {}
-
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {}
-
-  @Override
-  public void testInit() {
-    // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
-  }
-
-  /** This function is called periodically during test mode. */
-  @Override
-  public void testPeriodic() {}
-
-  /** This function is called once when the robot is first started up. */
-  @Override
-  public void simulationInit() {}
-
-  /** This function is called periodically whilst in simulation. */
+  /**
+   * This function is called periodically whilst in simulation.
+   */
   @Override
   public void simulationPeriodic() {
     SmartDashboard.putNumber("joyutil left x", joyUtil.getLeftX());
@@ -103,5 +92,31 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("left stick", joyUtil.getLeftStick());
     SmartDashboard.putBoolean("right stick", joyUtil.getRightStick());
+
+    SmartDashboard.putBoolean("pov left", joyUtil.getPOVLeft());
+    SmartDashboard.putBoolean("pov right", joyUtil.getPOVRight());
+    SmartDashboard.putBoolean("pov down", joyUtil.getPOVDown());
+    SmartDashboard.putBoolean("pov up", joyUtil.getPOVUp());
   }
+
+  @Override
+  public void disabledPeriodic() {}
+
+  /**
+   * This function is called periodically during autonomous.
+   */
+  @Override
+  public void autonomousPeriodic() {}
+
+  /**
+   * This function is called periodically during operator control.
+   */
+  @Override
+  public void teleopPeriodic() {}
+
+  /**
+   * This function is called periodically during test mode.
+   */
+  @Override
+  public void testPeriodic() {}
 }
