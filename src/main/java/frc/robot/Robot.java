@@ -8,7 +8,6 @@ import frc.robot.Constants.JoyUtilConstants;
 import frc.robot.Constants.OperatorConstants;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private JoyUtil joyUtil;
-  private XboxController xboxController;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -28,7 +26,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    xboxController = new XboxController(OperatorConstants.kDriverControllerPort);
     joyUtil = new JoyUtil(OperatorConstants.kDriverControllerPort, JoyUtilConstants.kDeadzone,
       JoyUtilConstants.kRateLimitLeft, JoyUtilConstants.kRateLimitRight, JoyUtilConstants.exponent1,
       JoyUtilConstants.exponent2, JoyUtilConstants.coeff1, JoyUtilConstants.coeff2,
@@ -91,14 +88,20 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
-    SmartDashboard.putNumber("xbox left x", xboxController.getLeftX());
-    SmartDashboard.putNumber("xbox left y", xboxController.getLeftY());
-    SmartDashboard.putNumber("xbox right x", xboxController.getRightX());
-    SmartDashboard.putNumber("xbox right y", xboxController.getRightY());
-
     SmartDashboard.putNumber("joyutil left x", joyUtil.getLeftX());
     SmartDashboard.putNumber("joyutil left y", joyUtil.getLeftY());
     SmartDashboard.putNumber("joyutil right x", joyUtil.getRightX());
     SmartDashboard.putNumber("joyutil right y", joyUtil.getRightY());
+
+    SmartDashboard.putBoolean("a", joyUtil.getAButton());
+    SmartDashboard.putBoolean("b", joyUtil.getBButton());
+    SmartDashboard.putBoolean("x", joyUtil.getXButton());
+    SmartDashboard.putBoolean("y", joyUtil.getYButton());
+
+    SmartDashboard.putBoolean("left bumper", joyUtil.getLeftBumper());
+    SmartDashboard.putBoolean("right bumper", joyUtil.getRightBumper());
+
+    SmartDashboard.putBoolean("left stick", joyUtil.getLeftStick());
+    SmartDashboard.putBoolean("right stick", joyUtil.getRightStick());
   }
 }

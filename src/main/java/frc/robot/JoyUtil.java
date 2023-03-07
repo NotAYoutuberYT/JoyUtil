@@ -110,6 +110,78 @@ public class JoyUtil extends CommandXboxController {
   }
 
   /**
+   * <> get value of A button as a boolean
+   *
+   * @return the value of the A button
+   */
+  public boolean getAButton() {
+    return a().getAsBoolean();
+  }
+
+  /**
+   * <> get value of B button as a boolean
+   *
+   * @return the value of the B button
+   */
+  public boolean getBButton() {
+    return b().getAsBoolean();
+  }
+
+  /**
+   * <> get value of X button as a boolean
+   *
+   * @return the value of the X button
+   */
+  public boolean getXButton() {
+    return x().getAsBoolean();
+  }
+
+  /**
+   * <> get value of Y button as a boolean
+   *
+   * @return the value of the Y button
+   */
+  public boolean getYButton() {
+    return y().getAsBoolean();
+  }
+
+  /**
+   * <> get value of left bumper as a boolean
+   *
+   * @return the value of the left bumper
+   */
+  public boolean getLeftBumper() {
+    return leftBumper().getAsBoolean();
+  }
+
+  /**
+   * <> get value of right bumper as a boolean
+   *
+   * @return the value of the right bumper
+   */
+  public boolean getRightBumper() {
+    return rightBumper().getAsBoolean();
+  }
+
+  /**
+   * <> get value of left stick pressed in as boolean
+   *
+   * @return the value of the left stick
+   */
+  public boolean getLeftStick() {
+    return leftStick().getAsBoolean();
+  }
+
+  /**
+   * <> get value of right stick pressed in as boolean
+   *
+   * @return the value of the right stick
+   */
+  public boolean getRightStick() {
+    return rightStick().getAsBoolean();
+  }
+
+  /**
    * <> applies a deadzone to an input using the deadzone
    * specified in the object
    *
