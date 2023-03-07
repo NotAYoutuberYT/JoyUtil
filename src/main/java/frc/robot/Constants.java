@@ -16,4 +16,23 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class JoyUtilConstants {
+    // size of controller deadzone
+    public static final double kDeadzone = 0.1;
+
+    // max amount controller output can change per second
+    public static final double kRateLimitLeft = 0.7;
+    public static final double kRateLimitRight = 0.8;
+
+    // curve stuff
+    public static final int exponent1 = 1;
+    public static final int exponent2 = 3;
+    public static final double coeff1 = 0.4;
+    public static final double coeff2 = 0.6;
+
+    // fast and slow mode
+    public static final double leftTriggerSpeedMultiplier = 1.5;
+    public static final double rightTriggerSpeedMultiplier = 0.5;
+  }
 }

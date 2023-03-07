@@ -4,11 +4,12 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.TestJoyutilCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.JoyUtilConstants;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.TestJoyutilCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -17,12 +18,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  JoyUtil joyUtil = new JoyUtil(OperatorConstants.kDriverControllerPort);
+  JoyUtil joyUtil = new JoyUtil(OperatorConstants.kDriverControllerPort, JoyUtilConstants.kDeadzone,
+    JoyUtilConstants.kRateLimitLeft, JoyUtilConstants.kRateLimitRight, JoyUtilConstants.exponent1,
+    JoyUtilConstants.exponent2, JoyUtilConstants.coeff1, JoyUtilConstants.coeff2,
+    JoyUtilConstants.leftTriggerSpeedMultiplier, JoyUtilConstants.rightTriggerSpeedMultiplier,
+    JoyUtilConstants.leftTriggerSpeedMultiplier, JoyUtilConstants.rightTriggerSpeedMultiplier);
 
   // The robot's subsystems and commands are defined here...
   private final TestJoyutilCommand m_testJoyutilCommand = new TestJoyutilCommand(joyUtil);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     m_testJoyutilCommand.schedule();
 
