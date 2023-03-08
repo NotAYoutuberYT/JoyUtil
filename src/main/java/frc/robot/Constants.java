@@ -23,11 +23,11 @@ public final class Constants {
 
     // max amount controller output can change per second
     public static final double kRateLimitLeft = 4.5;
-    public static final double kRateLimitRight = 4.5;
+    public static final double kRateLimitRight = 2.5;
 
     // curve stuff
     public static final int exponent1 = 1;
-    public static final int exponent2 = 2;
+    public static final int exponent2 = 3;
     public static final double coeff1 = 0.4;
     public static final double coeff2 = 0.6;
 
