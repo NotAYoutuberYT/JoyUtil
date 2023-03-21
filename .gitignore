@@ -160,3 +160,7 @@ bin/
 
 # Simulation GUI and other tools window save file
 *-window.json
+
+# I use intellij but don't want my config files in
+# the project since I'm the only one who uses it
+.idea

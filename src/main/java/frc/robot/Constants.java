@@ -18,20 +18,20 @@ public final class Constants {
   }
 
   public static class JoyUtilConstants {
-    // size of controller deadzone
+    // <> size of controller deadzone
     public static final double kDeadzone = 0.1;
 
-    // max amount controller output can change per second
+    // <> max amount controller output can change per second
     public static final double kRateLimitLeft = 4.5;
     public static final double kRateLimitRight = 2.5;
 
-    // curve stuff
+    // <> curve stuff
     public static final int exponent1 = 1;
     public static final int exponent2 = 3;
     public static final double coeff1 = 0.4;
     public static final double coeff2 = 0.6;
 
-    // fast and slow mode
+    // <> fast and slow mode
     public static final double leftTriggerSpeedMultiplier = 0.3;
     public static final double rightTriggerSpeedMultiplier = 1.7;
   }

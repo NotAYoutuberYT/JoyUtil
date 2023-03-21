@@ -77,15 +77,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void simulationPeriodic() {
-    SmartDashboard.putNumber("joyutil left x", joyUtil.getLeftX());
-    SmartDashboard.putNumber("joyutil left y", joyUtil.getLeftY());
-    SmartDashboard.putNumber("joyutil right x", joyUtil.getRightX());
-    SmartDashboard.putNumber("joyutil right y", joyUtil.getRightY());
-
-    SmartDashboard.putBoolean("a", joyUtil.getAButton());
-    SmartDashboard.putBoolean("b", joyUtil.getBButton());
-    SmartDashboard.putBoolean("x", joyUtil.getXButton());
-    SmartDashboard.putBoolean("y", joyUtil.getYButton());
+    SmartDashboard.putNumber("left x", joyUtil.getLeftX());
+    SmartDashboard.putNumber("left y", joyUtil.getLeftY());
+    SmartDashboard.putNumber("right x", joyUtil.getRightX());
+    SmartDashboard.putNumber("right y", joyUtil.getRightY());
 
     SmartDashboard.putBoolean("left bumper", joyUtil.getLeftBumper());
     SmartDashboard.putBoolean("right bumper", joyUtil.getRightBumper());

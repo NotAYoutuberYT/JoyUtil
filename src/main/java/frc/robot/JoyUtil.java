@@ -3,6 +3,8 @@ package frc.robot;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.JoyUtilConstants;
 
 /**
  * <> {@link CommandXboxController} with many joystick tweaks in addition
@@ -17,12 +19,29 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class JoyUtil extends CommandXboxController {
   private static final double sqrt2Over2 = Math.sqrt(2) / 2;
-
   private final double deadzone;
   private final double exponent1, exponent2, coefficient1, coefficient2;
   private final double leftTriggerLeftStickMultiplier, rightTriggerLeftStickMultiplier;
   private final double leftTriggerRightStickMultiplier, rightTriggerRightStickMultiplier;
   private final SlewRateLimiter leftXRateLimiter, leftYRateLimiter, rightXRateLimiter, rightYRateLimiter;
+
+  // <> these are here so that Triggers aren't being created every 20 ms
+  private final Trigger povDownLeftTrigger = povDownLeft();
+  private final Trigger povDownRightTrigger = povDownRight();
+  private final Trigger aTrigger = a();
+  private final Trigger bTrigger = b();
+  private final Trigger xTrigger = x();
+  private final Trigger yTrigger = y();
+  private final Trigger leftBumperTrigger = leftBumper();
+  private final Trigger rightBumperTrigger = rightBumper();
+  private final Trigger leftStickTrigger = leftStick();
+  private final Trigger rightStickTrigger = rightStick();
+  private final Trigger povLeftTrigger = povLeft();
+  private final Trigger povRightTrigger = povRight();
+  private final Trigger povUpTrigger = povUp();
+  private final Trigger povDownTrigger = povDown();
+  private final Trigger povUpLeftTrigger = povUpLeft();
+  private final Trigger povUpRightTrigger = povUpRight();
 
   /**
    * <> creates a new {@link JoyUtil} with the provided values
@@ -72,12 +91,6 @@ public class JoyUtil extends CommandXboxController {
     if (exponent1 % 2 == 0 || exponent2 % 2 == 0) {
       System.out.println("Exponents of joystick curve aren't odd!");
     }
-
-    // <> coefficients that don't sum to 1 make driving wonky so provide
-    // a one-time warning in the rio log if there are even exponents
-    if (coefficient1 + coefficient2 != 1) {
-      System.out.println("Coefficients of joystick curve don't add up to 1!");
-    }
   }
 
   @Override
@@ -122,7 +135,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the A button
    */
   public boolean getAButton() {
-    return a().getAsBoolean();
+    return aTrigger.getAsBoolean();
   }
 
   /**
@@ -131,7 +144,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the B button
    */
   public boolean getBButton() {
-    return b().getAsBoolean();
+    return bTrigger.getAsBoolean();
   }
 
   /**
@@ -140,7 +153,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the X button
    */
   public boolean getXButton() {
-    return x().getAsBoolean();
+    return xTrigger.getAsBoolean();
   }
 
   /**
@@ -149,7 +162,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the Y button
    */
   public boolean getYButton() {
-    return y().getAsBoolean();
+    return yTrigger.getAsBoolean();
   }
 
   /**
@@ -158,7 +171,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the left bumper
    */
   public boolean getLeftBumper() {
-    return leftBumper().getAsBoolean();
+    return leftBumperTrigger.getAsBoolean();
   }
 
   /**
@@ -167,7 +180,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the right bumper
    */
   public boolean getRightBumper() {
-    return rightBumper().getAsBoolean();
+    return rightBumperTrigger.getAsBoolean();
   }
 
   /**
@@ -176,7 +189,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the left stick
    */
   public boolean getLeftStick() {
-    return leftStick().getAsBoolean();
+    return leftStickTrigger.getAsBoolean();
   }
 
   /**
@@ -185,7 +198,7 @@ public class JoyUtil extends CommandXboxController {
    * @return the value of the right stick
    */
   public boolean getRightStick() {
-    return rightStick().getAsBoolean();
+    return rightStickTrigger.getAsBoolean();
   }
 
   /**
@@ -194,7 +207,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing left
    */
   public boolean getPOVLeft() {
-    return povLeft().getAsBoolean();
+    return povLeftTrigger.getAsBoolean();
   }
 
   /**
@@ -203,7 +216,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing right
    */
   public boolean getPOVRight() {
-    return povRight().getAsBoolean();
+    return povRightTrigger.getAsBoolean();
   }
 
   /**
@@ -212,7 +225,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing up
    */
   public boolean getPOVUp() {
-    return povUp().getAsBoolean();
+    return povUpTrigger.getAsBoolean();
   }
 
   /**
@@ -221,7 +234,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing down
    */
   public boolean getPOVDown() {
-    return povDown().getAsBoolean();
+    return povDownTrigger.getAsBoolean();
   }
 
   /**
@@ -230,7 +243,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing up left
    */
   public boolean getPOVUpLeft() {
-    return povUpLeft().getAsBoolean();
+    return povUpLeftTrigger.getAsBoolean();
   }
 
   /**
@@ -239,7 +252,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing up right
    */
   public boolean getPOVUpRight() {
-    return povUpRight().getAsBoolean();
+    return povUpRightTrigger.getAsBoolean();
   }
 
   /**
@@ -248,7 +261,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing down left
    */
   public boolean getPOVDownLeft() {
-    return povDownLeft().getAsBoolean();
+    return povDownLeftTrigger.getAsBoolean();
   }
 
   /**
@@ -257,7 +270,7 @@ public class JoyUtil extends CommandXboxController {
    * @return if the d-pad is facing down right
    */
   public boolean getPOVDownRight() {
-    return povDownRight().getAsBoolean();
+    return povDownRightTrigger.getAsBoolean();
   }
 
   /**
